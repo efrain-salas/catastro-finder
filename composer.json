@@ -1,14 +1,17 @@
 {
-    "name": "laravel/laravel",
+    "name": "efrain-salas/catastro-finder",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Catastro Finder",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
+        "ext-simplexml": "*",
+        "barryvdh/laravel-ide-helper": "^2.11",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
+        "laravel/nova": "~3.0",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5"
     },
@@ -58,5 +61,11 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": {
+        "nova": {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    }
 }
