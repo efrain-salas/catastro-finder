@@ -38,6 +38,8 @@ class SyncCommand extends Command
      */
     public function handle()
     {
+        ini_set('memory_limit', -1);
+
         $syncService = new SyncService();
         $syncService->sync();
 
