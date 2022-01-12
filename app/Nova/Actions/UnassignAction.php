@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 
-class AssignAction extends Action
+class UnassignAction extends Action
 {
     use InteractsWithQueue, Queueable;
 
@@ -24,7 +24,7 @@ class AssignAction extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         $models->each(function (Property $property) {
-            $property->users()->syncWithoutDetaching([auth()->id()]);
+            $property->users()->detach(auth()->id());
         });
 
         return null;
@@ -47,6 +47,6 @@ class AssignAction extends Action
      */
     public function name()
     {
-        return __('Assign');
+        return __('Unassign');
     }
 }

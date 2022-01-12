@@ -3,8 +3,10 @@
 namespace App\Nova;
 
 use App\Nova\Actions\AssignAction;
+use App\Nova\Actions\UnassignAction;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -48,7 +50,7 @@ class Property extends Resource
         return [
             //ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Reference'), 'reference')
-                ->sortable(),
+                ->hideFromIndex(),
             Text::make(__('Region'), 'region')
                 ->sortable(),
             Text::make(__('Town'), 'town')
@@ -63,7 +65,13 @@ class Property extends Resource
                 ->sortable(),
             Text::make(__('Door'), 'door')
                 ->sortable(),
-            Boolean::make(__('Assigned'), 'assigned_at'),
+            Date::make(__('Assigned'), function () {
+                $user = $this->users()->where('id', auth()->id())->first();
+                if ($user) {
+                    return $user->pivot->created_at;
+                }
+                return null;
+            })->format('DD/MM/YYYY'),
         ];
     }
 
@@ -109,7 +117,11 @@ class Property extends Resource
     public function actions(Request $request)
     {
         return [
-            (new AssignAction())->withoutConfirmation(),
+            (new AssignAction())->withoutConfirmation()
+                ->canRun(fn() => true),
+
+            (new UnassignAction())->withoutConfirmation()
+                ->canRun(fn() => true),
         ];
     }
 }

@@ -24,13 +24,13 @@ namespace App\Models{
  * @property string|null $stair
  * @property string|null $floor
  * @property string|null $door
- * @property string|null $assigned_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
  * @method static \Illuminate\Database\Eloquent\Builder|Property newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Property newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Property query()
- * @method static \Illuminate\Database\Eloquent\Builder|Property whereAssignedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Property whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Property whereDoor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Property whereFloor($value)
@@ -61,6 +61,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Property[] $properties
+ * @property-read int|null $properties_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)
