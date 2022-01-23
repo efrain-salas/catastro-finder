@@ -5,21 +5,21 @@ namespace App\Console\Commands;
 use App\Services\SyncService;
 use Illuminate\Console\Command;
 
-class SyncCommand extends Command
+class SyncPropertiesCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'sync';
+    protected $signature = 'sync:properties';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Sync properties';
 
     /**
      * Create a new command instance.

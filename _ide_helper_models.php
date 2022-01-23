@@ -12,6 +12,33 @@
 
 namespace App\Models{
 /**
+ * App\Models\PostalCode
+ *
+ * @property int $id
+ * @property string $region
+ * @property string $town
+ * @property string $street
+ * @property string $number
+ * @property string $postal_code
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|PostalCode newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PostalCode newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PostalCode query()
+ * @method static \Illuminate\Database\Eloquent\Builder|PostalCode whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PostalCode whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PostalCode whereNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PostalCode wherePostalCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PostalCode whereRegion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PostalCode whereStreet($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PostalCode whereTown($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PostalCode whereUpdatedAt($value)
+ */
+	class PostalCode extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Property
  *
  * @property int $id
