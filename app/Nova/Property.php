@@ -55,6 +55,16 @@ class Property extends Resource
                 ->sortable(),
             Text::make(__('Town'), 'town')
                 ->sortable(),
+            Text::make(__('Postal Code'), function () {
+                $result = \App\Models\PostalCode::query()->firstWhere([
+                    'region' => $this->region,
+                    'town' => $this->town,
+                    'street' => $this->street,
+                    'number' => $this->number,
+                ]);
+
+                return $result?->postal_code;
+            }),
             Text::make(__('Street'), 'street')
                 ->sortable(),
             Text::make(__('Number'), 'number')
