@@ -3,6 +3,7 @@
 namespace App\Nova\Actions;
 
 use App\Models\Property;
+use App\Services\PrettyShareService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -27,7 +28,9 @@ class AssignAction extends Action
             $property->users()->syncWithoutDetaching([auth()->id()]);
         });
 
-        return null;
+        $message = (new PrettyShareService())->prettify($models);
+
+        return Action::download('data:text/plain;base64,' . base64_encode($message), 'territorio.txt');
     }
 
     /**
