@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Actions\AssignAction;
+use App\Nova\Actions\PrettyMessage;
 use App\Nova\Actions\UnassignAction;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
@@ -56,14 +57,7 @@ class Property extends Resource
             Text::make(__('Town'), 'town')
                 ->sortable(),
             Text::make(__('Postal Code'), function () {
-                $result = \App\Models\PostalCode::query()->firstWhere([
-                    'region' => $this->region,
-                    'town' => $this->town,
-                    'street' => $this->street,
-                    'number' => $this->number,
-                ]);
-
-                return $result?->postal_code;
+                return \App\Models\PostalCode::getFromAddress($this->region, $this->town, $this->street, $this->number);
             }),
             Text::make(__('Street'), 'street')
                 ->sortable(),
@@ -131,6 +125,9 @@ class Property extends Resource
                 ->canRun(fn() => true),
 
             (new UnassignAction())->withoutConfirmation()
+                ->canRun(fn() => true),
+
+            (new PrettyMessage())->withoutConfirmation()
                 ->canRun(fn() => true),
         ];
     }

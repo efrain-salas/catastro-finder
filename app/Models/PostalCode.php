@@ -16,4 +16,16 @@ class PostalCode extends Model
         'number',
         'postal_code',
     ];
+
+    public static function getFromAddress(string $region, string $town, string $street, string $number): ?string
+    {
+        $result = static::query()->firstWhere([
+            'region' => $region,
+            'town' => $town,
+            'street' => $street,
+            'number' => $number,
+        ]);
+
+        return $result?->postal_code;
+    }
 }
