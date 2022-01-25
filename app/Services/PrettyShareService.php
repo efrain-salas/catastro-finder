@@ -15,12 +15,12 @@ class PrettyShareService
         })->map(function (Collection $groupedByNumber) {
             $p = $groupedByNumber->first();
             $postalCode = PostalCode::getFromAddress($p->region, $p->town, $p->street, $p->number);
-            $number = in_array($p->number, ['0', '00']) ? 'Bajo' : $p->number;
 
-            $header = $p->street . ', ' . $number . ' (' . $postalCode . ' - ' . $p->town . ')';
+            $header = $p->street . ', ' . $p->number . ' (' . $postalCode . ' - ' . $p->town . ')';
 
             $doors = $groupedByNumber->map(function (Property $property) {
-                return $property->floor . 'º ' . $property->door;
+                $floor = in_array($property->floor, ['0', '00']) ? 'Bajo' : $property->floor;
+                return $floor . 'º ' . $property->door;
             })->join("\n");
 
             return $header . "\n" . $doors;
