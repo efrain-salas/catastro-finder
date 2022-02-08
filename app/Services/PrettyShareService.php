@@ -23,7 +23,7 @@ class PrettyShareService
                 $stair = $p->stair != 'E' ? ltrim($p->stair, '0') : '';
                 $header = $stair ? 'Escalera ' . $stair : '';
 
-                $doors = $groupedByStair->sortBy('floor')->map(function (Property $property) {
+                $doors = $groupedByStair->sortBy('door')->sortBy('floor')->map(function (Property $property) {
                     $floor = in_array($property->floor, ['0', '00']) ? 'Bajo' : ltrim($property->floor, '0') . 'º';
                     return $floor . ' ' . $property->door;
                 })->join("\n");
