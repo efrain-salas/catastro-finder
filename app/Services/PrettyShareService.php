@@ -10,7 +10,7 @@ class PrettyShareService
 {
     public function prettify(Collection $properties): string
     {
-        return $properties->groupBy(function (Property $property) {
+        return $properties->sortBy('number')->sortBy('street')->groupBy(function (Property $property) {
             return $property->street . '-' . $property->number;
         })->map(function (Collection $groupedByNumber) {
             $p = $groupedByNumber->first();
