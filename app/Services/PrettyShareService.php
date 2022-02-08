@@ -18,12 +18,20 @@ class PrettyShareService
 
             $header = $p->street . ', ' . $p->number . ' (' . $postalCode . ' - ' . $p->town . ')';
 
-            $doors = $groupedByNumber->map(function (Property $property) {
-                $floor = in_array($property->floor, ['0', '00']) ? 'Bajo' : $property->floor;
-                return $floor . 'º ' . $property->door;
+            $stairs = $groupedByNumber->sortBy('stair')->groupBy('stair')->map(function (Collection $groupedByStair) {
+                $p = $groupedByStair->first();
+                $stair = $p->stair != 'E' ? ltrim($p->stair, '0') : '';
+                $header = $stair ? 'Escalera ' . $stair : '';
+
+                $doors = $groupedByStair->sortBy('floor')->map(function (Property $property) {
+                    $floor = in_array($property->floor, ['0', '00']) ? 'Bajo' : ltrim($property->floor, '0');
+                    return $floor . 'º ' . $property->door;
+                })->join("\n");
+
+                return $header ? $header . "\n" . $doors : $doors;
             })->join("\n");
 
-            return $header . "\n" . $doors;
+            return $header . "\n" . $stairs;
         })->join("\n\n");
     }
 }
