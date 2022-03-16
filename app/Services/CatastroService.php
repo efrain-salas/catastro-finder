@@ -15,7 +15,7 @@ class CatastroService
 {
     protected function http(): PendingRequest
     {
-        sleep(1);
+        sleep(2);
         return Http::baseUrl('https://ovc.catastro.meh.es/ovcservweb/OVCSWLocalizacionRC/OVCCallejero.asmx/')
             ->withoutVerifying();
     }
